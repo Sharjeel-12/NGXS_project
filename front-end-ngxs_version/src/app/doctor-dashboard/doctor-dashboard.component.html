@@ -1,0 +1,108 @@
+<h2>Doctors</h2>
+  <button (click)="activateForm()">+Add New Doctor</button>
+  @if(AddBtnPressed){
+    <form [formGroup]="addDoctorForm" (ngSubmit)="onSubmit()" id="addDoctorForm">
+    <div>
+      <label for="doctorID">Doctor ID</label><br/>
+      <input formControlName="doctorID" type="number" id="doctorID" name="doctorID" />
+    </div>
+
+    <div>
+      <label for="doctorName">Doctor Name</label><br/>
+      <input formControlName="doctorName" type="text" id="doctorName" name="doctorName" />
+    </div>
+
+    <div>
+      <label for="doctorEmail">Doctor Email</label><br/>
+      <input formControlName="doctorEmail" type="text" id="doctorEmail" name="doctorEmail" />
+    </div>
+
+    <div>
+      <label for="doctorPhone">Doctor Phone</label><br/>
+      <input formControlName="doctorPhone" type="text" id="doctorPhone" name="doctorPhone" />
+    </div>
+
+    <div>
+      <label for="specialization">Doctor Description</label><br/>
+      <textarea formControlName="specialization" id="specialization" name="specialization"></textarea>
+    </div>
+
+    <div>
+      <button  [disabled]="!(addDoctorForm.valid)" type="submit" >Add Doctor</button>
+      <button (click)="deactivateForm()">cancel</button>
+    </div>
+  </form>
+  }
+
+<!-- Edit button form starts here   -->
+@if(EditBtnPressed){
+    <form [formGroup]="editDoctorForm" (ngSubmit)="onEdit()" id="editDoctorForm">
+    <div>
+      <label for="doctorID">Doctor ID</label><br/>
+      <input formControlName="doctorID" type="number" id="doctorID" name="doctorID" />
+    </div>
+    
+    <div>
+      <label for="visitID">Visit ID</label><br/>
+      <input formControlName="visitID" type="number" id="visitID" name="visitID" />
+    </div>
+
+    <div>
+      <label for="doctorName">Doctor Name</label><br/>
+      <input formControlName="doctorName" type="text" id="doctorName" name="doctorName" />
+    </div>
+
+    <div>
+      <label for="doctorEmail">Doctor Email</label><br/>
+      <input formControlName="doctorEmail" type="text" id="doctorEmail" name="doctorEmail" />
+    </div>
+
+    <div>
+      <label for="doctorPhone">Doctor Phone</label><br/>
+      <input formControlName="doctorPhone" type="text" id="doctorPhone" name="doctorPhone" />
+    </div>
+
+    <div>
+      <label for="specialization">Doctor Description</label><br/>
+      <textarea formControlName="specialization" id="specialization" name="specialization"></textarea>
+    </div>
+
+    <div>
+      <button  [disabled]="!(editDoctorForm.valid)" type="submit" >Edit Doctor Details</button>
+      <button (click)="deactivateForm()">cancel</button>
+    </div>
+  </form>
+  }
+
+
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Doctor ID</th>
+      <!-- <th>Visit ID</th> -->
+      <th>Doctor Name</th>
+      <th>Doctor Email</th>
+      <th>Doctor Phone</th>
+      <th>Doctor Description</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+
+@for(doctor of (rows$ | async) ?? []; track doctor){
+    <tr>
+      <td>{{doctor.doctorID}}</td>
+      <td>{{doctor.doctorName}}</td>
+      <td>{{doctor.doctorEmail}}</td>
+      <td>{{doctor.doctorPhone}}</td>
+      <td>{{doctor.specialization}}</td>
+      <td class="actions">
+        <button type="button" class="btn btn-edit" (click)="activateEditForm(doctor)">Edit</button>
+        <button type="button" class="btn btn-delete" (click)="deleteAction(doctor.doctorID)">Delete</button>
+      </td>
+    </tr>
+}
+  </tbody>
+</table>

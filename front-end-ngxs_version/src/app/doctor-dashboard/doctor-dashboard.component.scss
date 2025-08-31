@@ -1,0 +1,223 @@
+/* ========== Doctors Page – Gorgeous Styling ========== */
+:root{
+  --bg: #f6f8fb;
+  --card: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --border: #e5e7eb;
+  --stripe: #f9fafb;
+  --shadow: 0 14px 38px rgba(2, 8, 23, .08);
+
+  --blue-500: #3b82f6;
+  --blue-600: #2563eb;
+  --blue-700: #1d4ed8;
+  --violet-500: #8b5cf6;
+  --violet-700: #6d28d9;
+
+  --danger-600: #dc2626;
+  --danger-700: #b91c1c;
+  --ok-600: #059669;
+  --ok-700: #047857;
+}
+
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg: #0b1220;
+    --card: #0f172a;
+    --text: #e5e7eb;
+    --muted: #94a3b8;
+    --border: #1f2937;
+    --stripe: #0b152a;
+    --shadow: 0 14px 38px rgba(0,0,0,.5);
+
+    --blue-600: #3b82f6;
+    --blue-700: #2563eb;
+    --violet-500: #a78bfa;
+    --violet-700: #7c3aed;
+  }
+}
+
+body{
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+  margin: 0;
+  padding: 24px;
+}
+
+/* Title + primary action */
+h2{
+  margin: 0 0 12px;
+  font-size: clamp(1.25rem, 1.1rem + .8vw, 1.8rem);
+  letter-spacing: .2px;
+}
+h2 + button{
+  appearance: none;
+  border: 1px solid transparent;
+  background: linear-gradient(180deg, var(--blue-600), var(--blue-700));
+  color: #1a1818;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: transform .02s ease, filter .15s ease, box-shadow .15s ease;
+  margin-bottom: 16px;
+}
+h2 + button:hover{ filter: brightness(1.08); }
+h2 + button:active{ transform: translateY(1px); }
+
+/* ===== Forms (Add / Edit) as elegant cards ===== */
+form#addDoctorForm,
+form#editDoctorForm{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  max-width: 960px;
+  margin: 14px 0 24px;
+  padding: 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+
+/* Top accent bar (blue for add, violet for edit) */
+form#addDoctorForm::before,
+form#editDoctorForm::before{
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+form#addDoctorForm::before{ background: linear-gradient(90deg, var(--blue-600), var(--blue-700)); }
+form#editDoctorForm::before{ background: linear-gradient(90deg, var(--violet-500), var(--violet-700)); }
+
+/* Full-width rows for actions + textarea */
+form#addDoctorForm > div:last-child,
+form#editDoctorForm > div:last-child{ grid-column: 1 / -1; display:flex; gap:12px; justify-content:flex-end; }
+@supports(selector(:has(*))){
+  form#addDoctorForm > div:has(textarea),
+  form#editDoctorForm > div:has(textarea){ grid-column: 1 / -1; }
+}
+
+/* Labels & fields */
+label{ display:block; font-weight:700; margin:6px 0 6px; }
+input, textarea{
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--text);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+}
+textarea{ min-height: 120px; resize: vertical; }
+input:focus, textarea:focus{
+  border-color: var(--blue-600);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, .18);
+}
+
+/* Angular validation state hint (if you use validators) */
+input.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched{
+  border-color: var(--danger-600);
+  background: rgba(239, 68, 68, .06);
+}
+
+/* Form buttons */
+form button{
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .02s ease, filter .15s ease, background .15s ease, border-color .15s ease;
+}
+form#addDoctorForm button[type="submit"]{
+  background: linear-gradient(180deg, var(--blue-600), var(--blue-700));
+  color: #161414;
+  border-color: var(--blue-700);
+}
+form#editDoctorForm button[type="submit"]{
+  background: linear-gradient(180deg, var(--violet-500), var(--violet-700));
+  color: #100f0f;
+  border-color: var(--violet-700);
+}
+form button[type="submit"]:hover{ filter: brightness(1.08); }
+form button[type="submit"]:active{ transform: translateY(1px); }
+
+form button + button{
+  background: transparent;
+  color: var(--blue-700);
+  border-color: var(--blue-700);
+}
+form#editDoctorForm button + button{ color: var(--violet-700); border-color: var(--violet-700); }
+form button + button:hover{
+  background: rgba(37, 99, 235, .08);
+}
+form#editDoctorForm button + button:hover{
+  background: rgba(109, 40, 217, .10);
+}
+button[disabled]{ opacity:.6; cursor:not-allowed; }
+
+/* ===== Doctors Table ===== */
+table{
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 18px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+thead th{
+  position: sticky; top: 0; z-index: 1;
+  text-align: left;
+  padding: .9rem 1rem;
+  font-size: .85rem;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  color: #151111;
+  background: linear-gradient(180deg, var(--blue-700), #0b3aa6);
+  border-bottom: 1px solid rgba(255,255,255,.15);
+}
+th, td{
+  padding: .9rem 1rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+tbody tr:nth-child(even){ background: var(--stripe); }
+tbody tr:hover{ background: rgba(59, 130, 246, .08); transition: background .2s ease; }
+tbody tr:last-child td{ border-bottom: none; }
+
+/* Action buttons inside table */
+td.actions{ white-space: nowrap; }
+.btn{
+  display: inline-flex; align-items: center; gap: .35rem;
+  font-size: .85rem; padding: .45rem .7rem;
+  border-radius: 10px; border: 1px solid transparent; background: transparent;
+  cursor: pointer; line-height: 1; user-select: none;
+  transition: background .15s ease, border-color .15s ease, transform .02s ease, color .15s ease;
+  margin-right: .4rem;
+}
+.btn:active{ transform: translateY(1px); }
+.btn-edit{ color: var(--ok-700); border-color: var(--ok-700); }
+.btn-edit:hover{ background: rgba(5, 150, 105, .10); border-color: var(--ok-600); }
+.btn-delete{ color: var(--danger-700); border-color: var(--danger-700); }
+.btn-delete:hover{ background: rgba(239, 68, 68, .10); border-color: var(--danger-600); }
+
+/* Responsive tweaks */
+@media (max-width: 900px){
+  form#addDoctorForm, form#editDoctorForm{ grid-template-columns: 1fr; padding: 16px; }
+  body{ padding: 16px; }
+  table{ font-size: .96rem; }
+  th, td{ padding: .75rem .85rem; }
+}

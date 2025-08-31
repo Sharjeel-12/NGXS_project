@@ -1,0 +1,329 @@
+/* ======= Beautiful Table Styling (light & dark) ======= */
+:root{
+  --bg: #f6f8fb;
+  --card: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --stripe: #f9fafb;
+  --accent-600: #059669; /* teal */
+  --accent-700: #047857;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root{
+    --bg: #0b1220;
+    --card: #0f172a;
+    --text: #e5e7eb;
+    --muted: #94a3b8;
+    --border: #1f2937;
+    --stripe: #0b152a;
+    --accent-600: #10b981;
+    --accent-700: #059669;
+  }
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  margin: 0;
+  padding: 1.5rem;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;               /* lets the rounded corners show */
+  box-shadow: 0 10px 24px rgba(2, 8, 20, 0.08);
+}
+
+caption {
+  text-align: left;
+  font-weight: 700;
+  font-size: 1.125rem;
+  padding: 1rem 1.25rem;
+  color: var(--text);
+}
+
+thead th {
+  position: sticky;               
+  top: 0;
+  z-index: 1;
+  color: #4a30b4;
+  text-align: left;
+  font-weight: 700;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  font-size: .85rem;
+  padding: .9rem 1rem;
+  background: linear-gradient(180deg, var(--accent-600), var(--accent-700));
+  border-bottom: 1px solid rgba(255,255,255,.15);
+}
+
+th, td {
+  padding: .9rem 1rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+tbody tr:nth-child(even) {
+  background: var(--stripe);
+}
+
+tbody tr:hover {
+  background: rgba(16, 185, 129, 0.08);   /* soft teal hover */
+  transition: background .2s ease;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Nice number alignment for IDs */
+td:first-child {
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+/* Responsive tweaks */
+@media (max-width: 640px) {
+  body { padding: 1rem; }
+  table { font-size: .95rem; }
+  th, td { padding: .75rem .8rem; }
+  caption { padding: .75rem .8rem; }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  font-size: .85rem;
+  padding: .45rem .7rem;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  line-height: 1;
+  user-select: none;
+  transition: background .2s ease, border-color .2s ease, transform .04s ease;
+  margin-right: .4rem;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+/* Edit: teal outline */
+.btn-edit {
+  color: var(--accent-700);
+  border-color: var(--accent-700);
+}
+.btn-edit:hover {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: var(--accent-600);
+}
+
+/* Delete: red outline */
+.btn-delete {
+  color: var(--danger-700);
+  border-color: var(--danger-700);
+}
+.btn-delete:hover {
+  background: rgba(239, 68, 68, 0.10);
+  border-color: var(--danger-600);
+}
+
+/* Responsive tweaks */
+@media (max-width: 640px) {
+  body { padding: 1rem; }
+  .patients-table { font-size: .95rem; }
+  .patients-table th, .patients-table td { padding: .75rem .8rem; }
+  .patients-table caption { padding: .75rem .8rem; }
+}
+
+
+
+
+
+
+
+// form styling
+/* ========= Beautiful forms for Add & Edit Patient ========= */
+:root{
+  --bg: #f6f8fb;
+  --card: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --border: #e5e7eb;
+  --ring: #c7d2fe;
+  --error: #ef4444;
+  --error-bg: #fee2e2;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root{
+    --bg: #0b1220;
+    --card: #0f172a;
+    --text: #e5e7eb;
+    --muted: #94a3b8;
+    --border: #1f2937;
+    --ring: #3730a3;
+    --error: #f87171;
+    --error-bg: #3b0a0a;
+  }
+}
+
+body { background: var(--bg); }
+
+/* Shared card look */
+form#addPatientForm,
+form#editPatientForm{
+  --accent: #0ea5e9;   /* default (overridden below) */
+  --accent-700: #0369a1;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  max-width: 900px;
+  margin: 24px auto;
+  padding: 20px;
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 12px 28px rgba(2, 8, 23, 0.08);
+  position: relative;
+}
+
+/* Accent stripe */
+form#addPatientForm::before,
+form#editPatientForm::before{
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  background: var(--accent);
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+/* Distinct accents */
+form#addPatientForm{ --accent:#0ea5e9; --accent-700:#0369a1; }   /* cyan for Add */
+form#editPatientForm{ --accent:#8b5cf6; --accent-700:#6d28d9; }  /* violet for Edit */
+
+form#addPatientForm > div,
+form#editPatientForm > div{
+  display: block;
+}
+
+/* Make the actions row full width */
+form#addPatientForm > div:last-child,
+form#editPatientForm > div:last-child{
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+
+/* Make the textarea row span full width (progressive enhancement) */
+form#addPatientForm > div:has(textarea),
+form#editPatientForm > div:has(textarea){
+  grid-column: 1 / -1;
+}
+
+/* Labels & fields */
+label{
+  display: block;
+  font-weight: 700;
+  font-size: .95rem;
+  margin: 6px 0 6px;
+  color: var(--text);
+}
+
+input, textarea{
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--text);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+}
+
+textarea{ min-height: 120px; resize: vertical; }
+
+/* Focus ring */
+input:focus, textarea:focus{
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+/* Angular validation states */
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched{
+  border-color: var(--error);
+  background: color-mix(in srgb, var(--error-bg) 60%, transparent);
+}
+
+/* Buttons */
+button{
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .02s ease, background .15s ease, border-color .15s ease, color .15s ease;
+}
+
+/* Primary = first button (submit) */
+form#addPatientForm button[type="submit"],
+form#editPatientForm button[type="submit"]{
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+form#addPatientForm button[type="submit"]:hover,
+form#editPatientForm button[type="submit"]:hover{
+  background: var(--accent-700);
+  border-color: var(--accent-700);
+}
+button:active{ transform: translateY(1px); }
+
+/* Secondary = the next button (cancel) */
+form#addPatientForm button + button,
+form#editPatientForm button + button{
+  background: transparent;
+  color: var(--accent-700);
+  border-color: var(--accent-700);
+}
+form#addPatientForm button + button:hover,
+form#editPatientForm button + button:hover{
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+/* Disabled button */
+button[disabled]{
+  opacity: .6;
+  cursor: not-allowed;
+  filter: grayscale(.25);
+}
+
+/* Responsive */
+@media (max-width: 720px){
+  form#addPatientForm,
+  form#editPatientForm{
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+}
